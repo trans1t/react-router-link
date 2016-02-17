@@ -56,7 +56,7 @@ function isEmptyObject(object) {
  */
 class Link extends React.Component {
     static contextTypes = {
-        history: object
+        router: object
     };
     static propTypes = {
         activeStyle: object,
@@ -93,11 +93,11 @@ class Link extends React.Component {
 
         if (allowTransition) {
             if (this.props.historyType === 'push') {
-                this.context.history.pushState(this.props.state, this.props.to, this.props.query);
+                this.context.router.push({ pathname: this.props.to, query: this.props.query, state: this.props.state});
             } else if (this.props.historyType === 'replace') {
-                this.context.history.replaceState(this.props.state, this.props.to, this.props.query);
+                this.context.router.replaceState({ pathname: this.props.to, pathname: this.props.query, pathname: this.props.state});
             } else if (this.props.historyType === 'back') {
-                this.context.history.goBack();
+                this.context.router.goBack();
             } else {
                 console.error(`Only 'push', 'replace' and 'back' are supported as historyTypes`);
             }
